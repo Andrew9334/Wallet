@@ -6,7 +6,6 @@ import com.javacode.wallet.model.OperationType;
 import com.javacode.wallet.model.Wallet;
 import com.javacode.wallet.model.WalletRequest;
 import com.javacode.wallet.repository.WalletRepository;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,6 +1,5 @@
 package com.javacode.wallet.model;
 
-import jakarta.persistence.Version;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
@@ -18,7 +17,4 @@ public class WalletRequest {
     private OperationType operationType;
 
     private BigDecimal amount;
-//
-//    @Version
-//    private Long version;
 }

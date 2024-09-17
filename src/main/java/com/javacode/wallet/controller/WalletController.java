@@ -2,7 +2,6 @@ package com.javacode.wallet.controller;
 
 import com.javacode.wallet.exception.InsufficientFundsException;
 import com.javacode.wallet.exception.WalletNotFoundException;
-import com.javacode.wallet.model.Wallet;
 import com.javacode.wallet.model.WalletRequest;
 import com.javacode.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
