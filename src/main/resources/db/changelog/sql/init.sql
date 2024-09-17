@@ -1,6 +1,6 @@
-create table if not exists wallet
+CREATE TABLE IF NOT EXISTS wallet
 (
-    wallet_id      uuid primary key,
-    operation_type varchar(50),
+    wallet_id      UUID PRIMARY KEY,
+    operation_type VARCHAR(50),
     amount         NUMERIC(5, 2)
 );
