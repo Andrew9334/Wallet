@@ -7,7 +7,6 @@ import com.javacode.wallet.model.Wallet;
 import com.javacode.wallet.model.WalletRequest;
 import com.javacode.wallet.repository.WalletRepository;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +23,7 @@ public class WalletService {
     }
 
     @Transactional
-    @Retryable(maxAttempts = 3, include = OptimisticLockingFailureException.class)
-    public void processOperation(WalletRequest walletRequest) {
+    public synchronized void processOperation(WalletRequest walletRequest) {
         Wallet wallet = walletRepository.findById(walletRequest.getWalletId())
                 .orElseThrow(() -> new WalletNotFoundException("Wallet with ID" + walletRequest.getWalletId() + " not found"));
 
@@ -48,7 +46,7 @@ public class WalletService {
     }
 
     @Transactional(readOnly = true)
-    public BigDecimal getBalance(UUID walletId) {
+    public synchronized BigDecimal getBalance(UUID walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
         return wallet.getAmount();

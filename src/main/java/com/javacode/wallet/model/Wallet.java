@@ -25,32 +25,4 @@ public class Wallet {
     @NotNull
     @Column(name = "amount")
     private BigDecimal amount;
-
-    @Version
-    @Column(name = "version")
-    private Long version;
-
-//    public UUID getId() {
-//        return walletId;
-//    }
-
-//    public OperationType getOperationType() {
-//        return operationType;
-//    }
-//
-//    public BigDecimal getAmount() {
-//        return amount;
-//    }
-//
-//    public void setAmount(BigDecimal amount) {
-//        this.amount = amount;
-//    }
-//
-//    public Long getVersion() {
-//        return version;
-//    }
-//
-//    public void setVersion(Long version) {
-//        this.version = version;
-//    }
 }
