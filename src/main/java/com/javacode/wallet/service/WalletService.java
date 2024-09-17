@@ -27,22 +27,16 @@ public class WalletService {
         Wallet wallet = walletRepository.findById(walletRequest.getWalletId())
                 .orElseThrow(() -> new WalletNotFoundException("Wallet with ID" + walletRequest.getWalletId() + " not found"));
 
-        try {
-            if (walletRequest.getOperationType() == OperationType.DEPOSIT) {
-                wallet.setAmount(wallet.getAmount().add(walletRequest.getAmount()));
-            } else if (walletRequest.getOperationType() == OperationType.WITHDRAW) {
-                if (wallet.getAmount().compareTo(walletRequest.getAmount()) < 0) {
-                    throw new InsufficientFundsException("Insufficient funds in wallet with ID " + walletRequest.getWalletId());
-                }
-                wallet.setAmount(wallet.getAmount().subtract(walletRequest.getAmount()));
+        if (walletRequest.getOperationType() == OperationType.DEPOSIT) {
+            wallet.setAmount(wallet.getAmount().add(walletRequest.getAmount()));
+        } else if (walletRequest.getOperationType() == OperationType.WITHDRAW) {
+            if (wallet.getAmount().compareTo(walletRequest.getAmount()) < 0) {
+                throw new InsufficientFundsException("Insufficient funds in wallet with ID " + walletRequest.getWalletId());
             }
-
-            walletRepository.save(wallet);
-
-        } catch (OptimisticLockingFailureException e) {
-            throw new RuntimeException("Optimistic locking failure while processing operation for wallet with ID "
-                    + walletRequest.getWalletId(), e);
+            wallet.setAmount(wallet.getAmount().subtract(walletRequest.getAmount()));
         }
+
+        walletRepository.save(wallet);
     }
 
     @Transactional(readOnly = true)
