@@ -7,6 +7,7 @@ import com.javacode.wallet.exception.WalletNotFoundException;
 import com.javacode.wallet.model.OperationType;
 import com.javacode.wallet.model.WalletRequest;
 import com.javacode.wallet.service.WalletService;
+import jakarta.persistence.OptimisticLockException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -117,5 +118,23 @@ public class WalletControllerTest {
         mockMvc.perform(get("/api/v1/wallets/wallets/{walletId}", walletId)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testHandleOptimisticLocking() throws Exception {
+        WalletRequest request = new WalletRequest()
+                .setWalletId(UUID.fromString("8c43fa60-8311-456c-b07f-e29020ee91b9"))
+                .setOperationType(OperationType.WITHDRAW)
+                .setAmount(BigDecimal.valueOf(100));
+
+        doThrow(new OptimisticLockException("Conflict occurred: Version mismatch")).when(walletService).processOperation(request);
+
+        mockMvc.perform(post("/api/v1/wallets")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isConflict())
+                .andExpect(content().string("Conflict occurred: Version mismatch"));
+
+        verify(walletService, times(1)).processOperation(request);
     }
 }
