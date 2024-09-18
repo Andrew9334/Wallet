@@ -35,6 +35,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(OptimisticLockException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<String> handleOptimisticLockException(OptimisticLockException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict occurred: " + ex.getMessage());
     }
