@@ -25,4 +25,8 @@ public class Wallet {
     @NotNull
     @Column(name = "amount")
     private BigDecimal amount;
+
+    @Version
+    @Column(name = "version")
+    Long version;
 }
