@@ -24,7 +24,7 @@ public class WalletService {
     }
 
     @Transactional
-    public synchronized void processOperation(WalletRequest walletRequest) {
+    public void processOperation(WalletRequest walletRequest) {
         try {
             Wallet wallet = walletRepository.findById(walletRequest.getWalletId())
                     .orElseThrow(() -> new WalletNotFoundException("Wallet with ID" + walletRequest.getWalletId() + " not found"));
@@ -44,7 +44,7 @@ public class WalletService {
     }
 
     @Transactional(readOnly = true)
-    public synchronized BigDecimal getBalance(UUID walletId) {
+    public BigDecimal getBalance(UUID walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
         return wallet.getAmount();
