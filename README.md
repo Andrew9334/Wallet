@@ -25,3 +25,7 @@ Wallet API — это RESTful приложение, предназначенно
   "operationType": "DEPOSIT" | "WITHDRAW",
   "amount": 1000
 }
+
+### 2. Получение баланса кошелька
+
+**GET** `/api/v1/wallets/{WALLET_UUID}
