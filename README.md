@@ -15,7 +15,7 @@ Wallet API — это RESTful приложение, предназначенно
 
 ### 1. Получение баланса кошелька
 
-**GET** `/api/v1/wallets/{WALLET_UUID}
+**GET** /api/v1/wallets/{WALLET_UUID}
 
 ### 2. Создание/обновление кошелька
 
