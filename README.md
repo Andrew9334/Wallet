@@ -13,7 +13,11 @@ Wallet API — это RESTful приложение, предназначенно
 
 ## Эндпоинты
 
-### 1. Создание/обновление кошелька
+### 1. Получение баланса кошелька
+
+**GET** `/api/v1/wallets/{WALLET_UUID}
+
+### 2. Создание/обновление кошелька
 
 **POST** `/api/v1/wallet`
 
@@ -25,7 +29,3 @@ Wallet API — это RESTful приложение, предназначенно
   "operationType": "DEPOSIT" | "WITHDRAW",
   "amount": 1000
 }
-
-### 2. Получение баланса кошелька
-
-**GET** `/api/v1/wallets/{WALLET_UUID}
