@@ -28,5 +28,5 @@ public class Wallet {
 
     @Version
     @Column(name = "version")
-    Long version;
+    private Long version;
 }
